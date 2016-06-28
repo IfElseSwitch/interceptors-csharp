@@ -23,7 +23,6 @@ namespace InterceptorsTests
 
         public void Call(int i)
         {
-            
             binded(i);
         }
     }

@@ -26,14 +26,14 @@ namespace InterceptorsTests.Creation
             Assert.IsNotNull(multiply);
             
             MethodInfo addmul = creater.CallBoth(add, multiply, new AddDelegateCreater(), typeof(TestClass));
-            addmul.Invoke(test, new object[] {  2 }); // (4 + 2) * 2
+            addmul.Invoke((AddDelegated)test, new object[] { 2 }); // (4 + 2) * 2
             Assert.AreEqual(12, test.number);
             
             test.number = 4; // 4
             Assert.AreEqual(4, test.number);
 
             MethodInfo muladd = creater.CallBoth(multiply, add, new MulDelegateCreater(), typeof(TestClass));
-            muladd.Invoke(test, new object[] { 2 }); // (4 * 2) + 2
+            muladd.Invoke((MulDelegated)test, new object[] { 2 }); // (4 * 2) + 2
             Assert.AreEqual(10, test.number);
         }
     }
