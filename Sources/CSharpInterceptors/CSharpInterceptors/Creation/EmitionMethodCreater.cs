@@ -74,15 +74,19 @@ namespace CSharpInterceptors.Creation
  
             DynamicMethod newMethod = new DynamicMethod(name, returnType, parameterTypes, owner, true);
             ILGenerator body = newMethod.GetILGenerator();
+            body.EmitWriteLine("First Call - Load parameters");
             for (int i = 0; i < parameterTypes.Length; ++i)
             {
                 body.Emit(OpCodes.Ldarg, i);
             }
-            body.Emit(OpCodes.Callvirt, first);
+            body.EmitWriteLine("First Call - Call function");
+            body.Emit(OpCodes.Call, first);
+            body.EmitWriteLine("Second Call - Load parameters");
             for (int i = 0; i < parameterTypes.Length; ++i)
             {
                 body.Emit(OpCodes.Ldarg, i);
             }
+            body.EmitWriteLine("Second Call - Call function");
             body.Emit(OpCodes.Callvirt, second);
             body.Emit(OpCodes.Ret);
 
