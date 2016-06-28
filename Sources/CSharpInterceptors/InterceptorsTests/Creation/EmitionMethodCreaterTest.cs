@@ -24,9 +24,11 @@ namespace InterceptorsTests.Creation
 
             Assert.IsNotNull(add);
             Assert.IsNotNull(multiply);
-            
+            AddDelegated ad = new AddDelegated(test);
+            Assert.IsNotNull(ad);
+            Assert.IsNotNull(ad.number);
             MethodInfo addmul = creater.CallBoth(add, multiply, new AddDelegateCreater(), typeof(TestClass));
-            addmul.Invoke((AddDelegated)test, new object[] { 2 }); // (4 + 2) * 2
+            addmul.Invoke(ad, new object[] { 2 }); // (4 + 2) * 2
             Assert.AreEqual(12, test.number);
             
             test.number = 4; // 4
