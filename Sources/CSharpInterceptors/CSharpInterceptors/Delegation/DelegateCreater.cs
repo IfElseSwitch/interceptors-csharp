@@ -16,7 +16,7 @@ namespace CSharpInterceptors.Delegation
         /// Returns the type of the binded class
         /// </summary>
         /// <returns></returns>
-        Type GetBindedType();
+        Type GetInterceptorType();
 
         /// <summary>
         /// Returns the type of the delegate

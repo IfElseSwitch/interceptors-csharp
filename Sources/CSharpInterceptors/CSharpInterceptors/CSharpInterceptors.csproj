@@ -43,6 +43,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BinderWrapper.cs" />
+    <Compile Include="Delegation\ConcreteDelegateCreater.cs" />
     <Compile Include="Interceptor.cs" />
     <Compile Include="Binding\MethodBinder.cs" />
     <Compile Include="Delegation\AbstractDelegateCreater.cs" />

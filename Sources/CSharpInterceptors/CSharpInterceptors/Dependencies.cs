@@ -1,10 +1,6 @@
 ﻿using CSharpInterceptors.Creation;
+using CSharpInterceptors.Delegation;
 using CSharpInterceptors.Injection;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CSharpInterceptors
 {
@@ -18,6 +14,11 @@ namespace CSharpInterceptors
         public static MethodCreater GetMethodCreater()
         {
             return new EmitionMethodCreater();
+        }
+
+        public static DelegateCreater GetDelegateCreater<TInterceptor, TDelegate>()
+        {
+            return new ConcreteDelegateCreater<TInterceptor, TDelegate>();
         }
     }
 }

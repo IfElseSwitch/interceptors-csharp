@@ -5,47 +5,43 @@ using System;
 namespace InterceptorsTests
 {
     public delegate void Operation(TestClass tc, int i);
-    public class AddDelegated : TestClass, Interceptor
+    public class AddInterceptor : TestClass, Interceptor
     {
-        public void Call(int i)
+        public void Intercept(int i)
         {
             Operation called = this.GetIntercepted<Operation>();
             called(this, i);
         }
     }
 
-    class MulDelegated : TestClass, Interceptor
+    class MulInterceptor : TestClass, Interceptor
     {
-        public void Call(int i)
+        public void Intercept(int i)
         {
             Operation called = this.GetIntercepted<Operation>();
             called(this, i);
         }
     }
 
-
-    public class AddDelegateCreater : AbstractDelegateCreater
+    class LogAddInterceptor : TestClass, Interceptor
     {
-        public override Type GetBindedType()
+        public void Intercept(int i)
         {
-            return typeof(AddDelegated);
-        }
-
-        public override Type GetDelegateType()
-        {
-            return typeof(Operation);
+            Console.Write(string.Format("{0} + {1}", number, i));
+            Operation operation = this.GetIntercepted<Operation>();
+            operation(this, i);
+            Console.WriteLine(string.Format(" = {0}", number));
         }
     }
 
-    public class MulDelegateCreater : AbstractDelegateCreater
+    class LogMulInterceptor : TestClass, Interceptor
     {
-        public override Type GetDelegateType()
+        public void Intercept(int i)
         {
-            return typeof(Operation);
-        }
-        public override Type GetBindedType()
-        {
-            return typeof(MulDelegated);
+            Console.Write(string.Format("{0} * {1}", number, i));
+            Operation operation = this.GetIntercepted<Operation>();
+            operation(this, i);
+            Console.WriteLine(string.Format(" = {0}", number));
         }
     }
 }

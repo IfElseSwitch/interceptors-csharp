@@ -15,7 +15,7 @@ namespace CSharpInterceptors
         #region Members
 
         PointerInjecter m_Injecter;
-        MethodCreater m_Creater;
+        MethodCreater m_MethodCreater;
 
         #endregion
 
@@ -25,26 +25,21 @@ namespace CSharpInterceptors
         public Interceptors()
         {
             m_Injecter = Dependencies.GetPointerInjecter();
-            m_Creater = Dependencies.GetMethodCreater();
+            m_MethodCreater = Dependencies.GetMethodCreater();
         }
 
         #endregion
 
 
-        #region Protected Methods
+        #region Public Methods
 
-        public void PostCall(MethodInfo call, MethodInfo post, DelegateCreater delegateCreater)
+        public void DefineInterceptor<TInterceptor, TDelegate>(MethodInfo call)
         {
-            MethodInfo replacement = m_Creater.CallBoth(call, post, delegateCreater, call.DeclaringType);
-            m_Injecter.InjectPointer(replacement, call);
-        }
-
-        public void PreCall(MethodInfo call, MethodInfo pre, DelegateCreater delegateCreater)
-        {
-            MethodInfo replacement = m_Creater.CallBoth(pre, call, delegateCreater, call.DeclaringType);
+            MethodInfo replacement = m_MethodCreater.CallOne(call, Dependencies.GetDelegateCreater<TInterceptor, TDelegate>());
             m_Injecter.InjectPointer(replacement, call);
         }
 
         #endregion
+        
     }
 }

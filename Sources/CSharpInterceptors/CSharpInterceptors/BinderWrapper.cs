@@ -11,7 +11,6 @@ namespace CSharpInterceptors
             StackTrace trace = new StackTrace();
             StackFrame frame = trace.GetFrame(1);
             Type calling = frame.GetMethod().DeclaringType;
-            //Console.WriteLine(calling.Name);
             return MethodBinder.GetBoundFromType<T>(calling);
         }
     }

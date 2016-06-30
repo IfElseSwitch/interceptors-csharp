@@ -76,31 +76,40 @@ namespace CSharpInterceptors.Creation
  
             DynamicMethod newMethod = new DynamicMethod(name, returnType, parameterTypes, owner, true);
             ILGenerator body = newMethod.GetILGenerator();
-            //body.EmitWriteLine("First Call - Load parameters");
-            
-            //for (int i = 0; i < parameterTypes.Length; ++i)
-            //{
-            //    Label label = body.DefineLabel();
-            //    body.Emit(OpCodes.Ldarg, i);
-            //    body.Emit(OpCodes.Brtrue, label);
-            //    body.EmitWriteLine(string.Format("arg {0}/{1} null ({2})", i + 1, parameterTypes.Length, parameterTypes[i].ToString()));
-            //    body.MarkLabel(label);
-            //}
+
             for (int i = 0; i < parameterTypes.Length; ++i)
             {
                 body.Emit(OpCodes.Ldarg, i);
             }
-            //body.EmitWriteLine("First Call - Call function");
-            //Console.WriteLine(string.Format("--{0}", first.Name)); 
             body.Emit(OpCodes.Callvirt, first);
-            //body.EmitWriteLine("Second Call - Load parameters");
             for (int i = 0; i < parameterTypes.Length; ++i)
             {
                 body.Emit(OpCodes.Ldarg, i);
             }
-            //body.EmitWriteLine("Second Call - Call function");
-            //Console.WriteLine(string.Format("--{0}", second.Name));
             body.Emit(OpCodes.Callvirt, second);
+            body.Emit(OpCodes.Ret);
+
+            return delegateCreater.CreateDelegate(newMethod);
+        }
+
+        public MethodInfo CallOne(MethodInfo method, DelegateCreater delegateCreater)
+        {
+            RuntimeHelpers.PrepareMethod(method.MethodHandle);
+
+            string name = string.Format("Call_{0}", method.Name);
+            Type returnType = method.ReturnType;
+            Type[] parameterTypes = ExtractParameterTypes(method);
+            List<Type> paramList = new List<Type>(parameterTypes);
+            paramList.Insert(0, method.DeclaringType);
+            parameterTypes = paramList.ToArray();
+
+            DynamicMethod newMethod = new DynamicMethod(name, returnType, parameterTypes, method.DeclaringType, true);
+            ILGenerator body = newMethod.GetILGenerator();
+            for (int i = 0; i < parameterTypes.Length; ++i)
+            {
+                body.Emit(OpCodes.Ldarg, i);
+            }
+            body.Emit(OpCodes.Callvirt, method);
             body.Emit(OpCodes.Ret);
 
             return delegateCreater.CreateDelegate(newMethod);

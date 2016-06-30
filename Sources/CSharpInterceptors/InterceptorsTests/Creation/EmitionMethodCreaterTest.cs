@@ -2,6 +2,7 @@
 using CSharpInterceptors.Creation;
 using System.Reflection;
 using CSharpInterceptors.Injection;
+using CSharpInterceptors.Delegation;
 
 namespace InterceptorsTests.Creation
 {
@@ -31,7 +32,7 @@ namespace InterceptorsTests.Creation
             Assert.IsNotNull(noOp);
             Assert.IsNotNull(noOp2);
 
-            MethodInfo addmul = creater.CallBoth(add, multiply, new AddDelegateCreater(), typeof(TestClass));
+            MethodInfo addmul = creater.CallBoth(add, multiply, new ConcreteDelegateCreater<AddInterceptor, Operation>(), typeof(TestClass));
             injecter.InjectPointer(addmul, noOp);
             test.NoOperation(2);
             Assert.AreEqual(12, test.number);
@@ -40,7 +41,7 @@ namespace InterceptorsTests.Creation
             test.number = 4; // 4
             Assert.AreEqual(4, test.number);
 
-            MethodInfo muladd = creater.CallBoth(multiply, add, new MulDelegateCreater(), typeof(TestClass));
+            MethodInfo muladd = creater.CallBoth(multiply, add, new ConcreteDelegateCreater<MulInterceptor, Operation>(), typeof(TestClass));
             injecter.InjectPointer(muladd, noOp2);
             test.NoOperation2(2);
             Assert.AreEqual(10, test.number);

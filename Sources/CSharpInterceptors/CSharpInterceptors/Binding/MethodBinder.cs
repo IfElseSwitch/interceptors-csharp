@@ -20,7 +20,7 @@ namespace CSharpInterceptor.Binding
 
         public static void Bind(Delegate d, DelegateCreater creater)
         {
-            Type key = creater.GetBindedType();
+            Type key = creater.GetInterceptorType();
             if (Bindings.ContainsKey(key))
                 Bindings.Remove(key);
             Bindings.Add(key, d);

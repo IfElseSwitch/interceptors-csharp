@@ -10,12 +10,12 @@ namespace CSharpInterceptors.Delegation
         public MethodInfo CreateDelegate(DynamicMethod method)
         {
             Delegate d = method.CreateDelegate(GetDelegateType());
-            MethodInfo called = GetBindedType().GetMethod("Call", BindingFlags.Instance | BindingFlags.DeclaredOnly | BindingFlags.Public);
+            MethodInfo called = GetInterceptorType().GetMethod("Intercept", BindingFlags.Instance | BindingFlags.DeclaredOnly | BindingFlags.Public);
             Bind(d);
             return called;
         }
 
-        public abstract Type GetBindedType();
+        public abstract Type GetInterceptorType();
 
         public abstract Type GetDelegateType();
 
