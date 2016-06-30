@@ -26,7 +26,7 @@ namespace InterceptorsTests
         [TestMethod]
         public void InterceptorTestMethod()
         {
-            Interceptor interceptor = new Interceptor();
+            Interceptors interceptor = new Interceptors();
 
             MethodInfo logadd = typeof(InterceptorTest).GetMethod("LogAdd", BindingFlags.Static | BindingFlags.Public | BindingFlags.DeclaredOnly);
             MethodInfo logmultiply = typeof(InterceptorTest).GetMethod("LogMultiply", BindingFlags.Static | BindingFlags.Public | BindingFlags.DeclaredOnly);
