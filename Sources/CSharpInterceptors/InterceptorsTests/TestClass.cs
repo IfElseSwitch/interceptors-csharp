@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace InterceptorsTests
 {
-    public delegate void Operation(int i);
+    public delegate void Operation(TestClass tc, int i);
     public class AddDelegated : TestClass
     {
         public AddDelegated():base() { }
@@ -30,7 +30,7 @@ namespace InterceptorsTests
 
         public void Call(int i)
         {
-            binded(i);
+            binded(this, i);
         }
     }
 
@@ -45,7 +45,7 @@ namespace InterceptorsTests
 
         public void Call(int i)
         {
-            MulDelegated.binded(i);
+            MulDelegated.binded(this,i);
         }
     }
 
