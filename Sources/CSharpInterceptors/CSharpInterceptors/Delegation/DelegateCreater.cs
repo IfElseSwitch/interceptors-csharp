@@ -6,7 +6,7 @@ using System.Reflection.Emit;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CSharpInterceptors.Creation
+namespace CSharpInterceptors.Delegation
 {
     public interface DelegateCreater
     {

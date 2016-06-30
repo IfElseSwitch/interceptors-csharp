@@ -1,13 +1,8 @@
 ﻿using CSharpInterceptors.Creation;
+using CSharpInterceptors.Delegation;
 using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
 using System.Reflection;
 using System.Reflection.Emit;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace InterceptorsTests
 {

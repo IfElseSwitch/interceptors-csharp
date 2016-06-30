@@ -42,7 +42,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Creation\DelegateCreater.cs" />
+    <Compile Include="Delegation\DelegateCreater.cs" />
     <Compile Include="Creation\EmitionMethodCreater.cs" />
     <Compile Include="Creation\MethodCreater.cs" />
     <Compile Include="Dependencies.cs" />

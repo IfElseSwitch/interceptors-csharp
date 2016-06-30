@@ -1,4 +1,5 @@
 ﻿using CSharpInterceptors.Creation;
+using CSharpInterceptors.Delegation;
 using CSharpInterceptors.Injection;
 using System;
 using System.Collections.Generic;
