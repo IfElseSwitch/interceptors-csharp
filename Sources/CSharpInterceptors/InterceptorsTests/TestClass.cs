@@ -54,19 +54,26 @@ namespace InterceptorsTests
         public int number;
         public void Add(int i)
         {
-            if (this == null)
-                Console.WriteLine("the reference to this is null...");
+            Console.WriteLine("Add");
             number = number + i;
         }
 
         public void Multiply(int i)
         {
+            Console.WriteLine("Multiply");
             number *= i;
         }
 
-        public void NoOperation(int i) { }
+        public void NoOperation(int i)
+        {
+            Console.WriteLine("NoOperation");
+        }
 
-        
+        public void NoOperation2(int i)
+        {
+            Console.WriteLine("NoOperation2");
+        }
+
     }
 
 
@@ -96,7 +103,7 @@ namespace InterceptorsTests
         public MethodInfo CreateDelegate(DynamicMethod method)
         {
             Operation op = (Operation)method.CreateDelegate(typeof(Operation));
-            MethodInfo callInfo = typeof(AddDelegated).GetMethod("Call");
+            MethodInfo callInfo = typeof(MulDelegated).GetMethod("Call");
             MulDelegated.Bind(op);
             return callInfo;
         }

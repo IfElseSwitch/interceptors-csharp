@@ -61,6 +61,7 @@ namespace CSharpInterceptors.Creation
                 throw new IncompatibleMethodsException();
             if (ArraysEquals(first.GetParameters(), second.GetParameters()))
                 throw new IncompatibleMethodsException();
+            
 
             RuntimeHelpers.PrepareMethod(first.MethodHandle);
             RuntimeHelpers.PrepareMethod(second.MethodHandle);
@@ -74,30 +75,30 @@ namespace CSharpInterceptors.Creation
  
             DynamicMethod newMethod = new DynamicMethod(name, returnType, parameterTypes, owner, true);
             ILGenerator body = newMethod.GetILGenerator();
-            body.EmitWriteLine("First Call - Load parameters");
+            //body.EmitWriteLine("First Call - Load parameters");
             
-            for (int i = 0; i < parameterTypes.Length; ++i)
-            {
-                Label label = body.DefineLabel();
-                body.Emit(OpCodes.Ldarg, i);
-                //body.Emit(OpCodes.Ldnull);
-                //body.Emit(OpCodes.Ceq);
-                body.Emit(OpCodes.Brtrue, label);
-                body.EmitWriteLine(string.Format("arg {0}/{1} null ({2})", i + 1, parameterTypes.Length, parameterTypes[i].ToString()));
-                body.MarkLabel(label);
-            }
+            //for (int i = 0; i < parameterTypes.Length; ++i)
+            //{
+            //    Label label = body.DefineLabel();
+            //    body.Emit(OpCodes.Ldarg, i);
+            //    body.Emit(OpCodes.Brtrue, label);
+            //    body.EmitWriteLine(string.Format("arg {0}/{1} null ({2})", i + 1, parameterTypes.Length, parameterTypes[i].ToString()));
+            //    body.MarkLabel(label);
+            //}
             for (int i = 0; i < parameterTypes.Length; ++i)
             {
                 body.Emit(OpCodes.Ldarg, i);
             }
-            body.EmitWriteLine("First Call - Call function");
+            //body.EmitWriteLine("First Call - Call function");
+            Console.WriteLine(string.Format("--{0}", first.Name)); 
             body.Emit(OpCodes.Callvirt, first);
-            body.EmitWriteLine("Second Call - Load parameters");
+            //body.EmitWriteLine("Second Call - Load parameters");
             for (int i = 0; i < parameterTypes.Length; ++i)
             {
                 body.Emit(OpCodes.Ldarg, i);
             }
-            body.EmitWriteLine("Second Call - Call function");
+            //body.EmitWriteLine("Second Call - Call function");
+            Console.WriteLine(string.Format("--{0}", second.Name));
             body.Emit(OpCodes.Callvirt, second);
             body.Emit(OpCodes.Ret);
 
