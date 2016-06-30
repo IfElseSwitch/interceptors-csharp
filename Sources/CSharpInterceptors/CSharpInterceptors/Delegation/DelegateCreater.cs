@@ -11,6 +11,19 @@ namespace CSharpInterceptors.Delegation
     public interface DelegateCreater
     {
         MethodInfo CreateDelegate(DynamicMethod method);
+
+        /// <summary>
+        /// Returns the type of the binded class
+        /// </summary>
+        /// <returns></returns>
+        Type GetBindedType();
+
+        /// <summary>
+        /// Returns the type of the delegate
+        /// </summary>
+        /// <returns></returns>
         Type GetDelegateType();
+
+        void Bind(Delegate d);
     }
 }

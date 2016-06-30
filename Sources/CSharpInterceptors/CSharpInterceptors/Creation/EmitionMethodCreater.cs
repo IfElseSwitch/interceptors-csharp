@@ -91,7 +91,7 @@ namespace CSharpInterceptors.Creation
                 body.Emit(OpCodes.Ldarg, i);
             }
             //body.EmitWriteLine("First Call - Call function");
-            Console.WriteLine(string.Format("--{0}", first.Name)); 
+            //Console.WriteLine(string.Format("--{0}", first.Name)); 
             body.Emit(OpCodes.Callvirt, first);
             //body.EmitWriteLine("Second Call - Load parameters");
             for (int i = 0; i < parameterTypes.Length; ++i)
@@ -99,7 +99,7 @@ namespace CSharpInterceptors.Creation
                 body.Emit(OpCodes.Ldarg, i);
             }
             //body.EmitWriteLine("Second Call - Call function");
-            Console.WriteLine(string.Format("--{0}", second.Name));
+            //Console.WriteLine(string.Format("--{0}", second.Name));
             body.Emit(OpCodes.Callvirt, second);
             body.Emit(OpCodes.Ret);
 

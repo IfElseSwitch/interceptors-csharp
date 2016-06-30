@@ -42,13 +42,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BinderWrapper.cs" />
+    <Compile Include="Interceptor.cs" />
+    <Compile Include="Binding\MethodBinder.cs" />
+    <Compile Include="Delegation\AbstractDelegateCreater.cs" />
     <Compile Include="Delegation\DelegateCreater.cs" />
     <Compile Include="Creation\EmitionMethodCreater.cs" />
     <Compile Include="Creation\MethodCreater.cs" />
     <Compile Include="Dependencies.cs" />
     <Compile Include="Injection\BaseInjecter.cs" />
     <Compile Include="Injection\PointerInjecter.cs" />
-    <Compile Include="Interceptor.cs" />
+    <Compile Include="Interceptors.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup />
