@@ -1,4 +1,4 @@
-﻿using CSharpInterceptor.Binding;
+﻿using CSharpInterceptors.Binding;
 using System;
 using System.Diagnostics;
 
