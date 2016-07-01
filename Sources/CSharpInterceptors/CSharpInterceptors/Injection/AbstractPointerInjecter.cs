@@ -1,13 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CSharpInterceptors.Injection
 {
-    public abstract class AbstractPointerInjecter : PointerInjecter
+    abstract class AbstractPointerInjecter : PointerInjecter
     {
         public void InjectPointer(MethodInfo inject, MethodInfo into)
         {

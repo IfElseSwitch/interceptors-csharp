@@ -8,7 +8,7 @@ using CSharpInterceptors.Creation;
 
 namespace CSharpInterceptors.Injection
 {
-    public class Int32PointerInjecter : AbstractPointerInjecter
+    class Int32PointerInjecter : AbstractPointerInjecter
     {
         public override void Inject(RuntimeMethodHandle injectHandle, RuntimeMethodHandle intoHandle)
         {

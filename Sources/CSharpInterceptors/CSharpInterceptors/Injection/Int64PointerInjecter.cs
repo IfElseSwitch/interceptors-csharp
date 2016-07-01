@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CSharpInterceptors.Injection
 {
-    public class Int64PointerInjecter : AbstractPointerInjecter
+    class Int64PointerInjecter : AbstractPointerInjecter
     {
         public override void Inject(RuntimeMethodHandle injectHandle, RuntimeMethodHandle intoHandle)
         {

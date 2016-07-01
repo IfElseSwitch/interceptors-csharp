@@ -1,6 +1,7 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Reflection;
 using CSharpInterceptors.Injection;
+using CSharpInterceptors;
 
 namespace InterceptorsTests.Injection
 {
@@ -10,7 +11,7 @@ namespace InterceptorsTests.Injection
         [TestMethod]
         public void PointerInjecterTestMethod()
         {
-            PointerInjecter injecter = new Int32PointerInjecter();
+            PointerInjecter injecter = Dependencies.GetPointerInjecter();
             TestClass test = new TestClass();
             test.number = 1; // 1
             test.Add(1); // 1 + 1
