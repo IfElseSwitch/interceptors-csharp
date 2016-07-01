@@ -7,24 +7,22 @@ using System.Runtime.CompilerServices;
 
 namespace CSharpInterceptors.Creation
 {
-    public class IncompatibleMethodsException : Exception
-    {
-
-    }
-
     public class EmitionMethodCreater : MethodCreater
     {
-        private static bool ArraysEquals<T>(T[] A, T[] B)
+        private static EmitionMethodCreater s_Instance;
+
+        public static EmitionMethodCreater Instance
         {
-            if (A.Length != B.Length)
-                return false;
-            for (int i = 0; i < A.Length; ++i)
+            get
             {
-                if (A[i].Equals(B[i]) == false)
-                    return false;
+                if (s_Instance == null)
+                    s_Instance = new EmitionMethodCreater();
+                return s_Instance;
             }
-            return true;
         }
+
+        private EmitionMethodCreater() { }
+
 
         private Type[] ExtractParameterTypes(MethodInfo method)
         {
@@ -45,53 +43,6 @@ namespace CSharpInterceptors.Creation
             return parameterTypes;
         }
         
-        private bool CompareReturnTypes(MethodInfo first, MethodInfo second)
-        {
-            if (first.ReturnType == null || second.ReturnType == null)
-                return true;
-
-            if (first.ReturnType == typeof(void) || second.ReturnType == typeof(void))
-                return true;
-
-            return false;
-        }
-
-        public MethodInfo CallBoth(MethodInfo first, MethodInfo second, DelegateCreater delegateCreater, Type owner)
-        {
-            if (CompareReturnTypes(first, second) == false)
-                throw new IncompatibleMethodsException();
-            if (ArraysEquals(first.GetParameters(), second.GetParameters()))
-                throw new IncompatibleMethodsException();
-            
-
-            RuntimeHelpers.PrepareMethod(first.MethodHandle);
-            RuntimeHelpers.PrepareMethod(second.MethodHandle);
-
-            string name = string.Format("CallBoth_{0}_{1}", first.Name, second.Name);
-            Type returnType = first.ReturnType;
-            Type[] parameterTypes = ExtractParameterTypes(first);
-            List<Type> paramList = new List<Type>(parameterTypes);
-            paramList.Insert(0, owner);
-            parameterTypes = paramList.ToArray();
- 
-            DynamicMethod newMethod = new DynamicMethod(name, returnType, parameterTypes, owner, true);
-            ILGenerator body = newMethod.GetILGenerator();
-
-            for (int i = 0; i < parameterTypes.Length; ++i)
-            {
-                body.Emit(OpCodes.Ldarg, i);
-            }
-            body.Emit(OpCodes.Callvirt, first);
-            for (int i = 0; i < parameterTypes.Length; ++i)
-            {
-                body.Emit(OpCodes.Ldarg, i);
-            }
-            body.Emit(OpCodes.Callvirt, second);
-            body.Emit(OpCodes.Ret);
-
-            return delegateCreater.CreateDelegate(newMethod);
-        }
-
         public MethodInfo CallOne(MethodInfo method, DelegateCreater delegateCreater)
         {
             RuntimeHelpers.PrepareMethod(method.MethodHandle);
@@ -105,11 +56,14 @@ namespace CSharpInterceptors.Creation
 
             DynamicMethod newMethod = new DynamicMethod(name, returnType, parameterTypes, method.DeclaringType, true);
             ILGenerator body = newMethod.GetILGenerator();
+            //Load arguments
             for (int i = 0; i < parameterTypes.Length; ++i)
             {
                 body.Emit(OpCodes.Ldarg, i);
             }
+            //Call method
             body.Emit(OpCodes.Callvirt, method);
+            //Return
             body.Emit(OpCodes.Ret);
 
             return delegateCreater.CreateDelegate(newMethod);

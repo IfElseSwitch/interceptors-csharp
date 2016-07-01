@@ -4,16 +4,16 @@ using CSharpInterceptors.Injection;
 
 namespace CSharpInterceptors
 {
-    static class Dependencies
+    public static class Dependencies
     {
         public static PointerInjecter GetPointerInjecter()
         {
-            return new BaseInjecter();
+            return AnyCPUPointerInjecter.Instance;
         }
 
         public static MethodCreater GetMethodCreater()
         {
-            return new EmitionMethodCreater();
+            return EmitionMethodCreater.Instance;
         }
 
         public static DelegateCreater GetDelegateCreater<TInterceptor, TDelegate>()
