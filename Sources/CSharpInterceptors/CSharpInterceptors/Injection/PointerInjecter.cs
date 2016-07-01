@@ -8,7 +8,7 @@ using CSharpInterceptors.Creation;
 
 namespace CSharpInterceptors.Injection
 {
-    interface PointerInjecter
+    public interface PointerInjecter
     {
         void InjectPointer(MethodInfo inject, MethodInfo into);
     }
