@@ -1,0 +1,84 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{141BECED-1840-4D32-AB01-164683CC1784}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>ILReaderLibrary</RootNamespace>
+    <AssemblyName>ILReaderLibrary</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ILReader\DefaultFormatProvider.cs" />
+    <Compile Include="ILReader\FormatProvider.cs" />
+    <Compile Include="ILReader\IILStringCollector.cs" />
+    <Compile Include="ILReader\ILInstruction.cs" />
+    <Compile Include="ILReader\ILInstructionVisitor.cs" />
+    <Compile Include="ILReader\ILProvider.cs" />
+    <Compile Include="ILReader\ILReader.cs" />
+    <Compile Include="ILReader\InlineBrTargetInstruction.cs" />
+    <Compile Include="ILReader\InlineFieldInstruction.cs" />
+    <Compile Include="ILReader\InlineI8Instruction.cs" />
+    <Compile Include="ILReader\InlineIInstruction.cs" />
+    <Compile Include="ILReader\InlineMethodInstruction.cs" />
+    <Compile Include="ILReader\InlineNoneInstruction.cs" />
+    <Compile Include="ILReader\InlineRInstruction.cs" />
+    <Compile Include="ILReader\InlineSigInstruction.cs" />
+    <Compile Include="ILReader\InlineStringInstruction.cs" />
+    <Compile Include="ILReader\InlineSwitchInstruction.cs" />
+    <Compile Include="ILReader\InlineTokInstruction.cs" />
+    <Compile Include="ILReader\InlineTypeInstruction.cs" />
+    <Compile Include="ILReader\InlineVarInstruction.cs" />
+    <Compile Include="ILReader\ITokenResolver.cs" />
+    <Compile Include="ILReader\MethodBaseILProvider.cs" />
+    <Compile Include="ILReader\RawILStringToTextWriter.cs" />
+    <Compile Include="ILReader\RawILStringVisitor.cs" />
+    <Compile Include="ILReader\ReadableILStringToTextWriter.cs" />
+    <Compile Include="ILReader\ReadableILStringVisitor.cs" />
+    <Compile Include="ILReader\ShortInlineBrTargetInstruction.cs" />
+    <Compile Include="ILReader\ShortInlineIInstruction.cs" />
+    <Compile Include="ILReader\ShortInlineRInstruction.cs" />
+    <Compile Include="ILReader\ShortInlineVarInstruction.cs" />
+    <Compile Include="ILReader\TokenResolver.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
