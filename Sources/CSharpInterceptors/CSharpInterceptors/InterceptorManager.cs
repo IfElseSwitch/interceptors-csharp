@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace CSharpInterceptors
 {
-    public class Interceptors
+    public class InterceptorManager
     {
         #region Members
 
@@ -22,7 +22,7 @@ namespace CSharpInterceptors
 
         #region Constructor
 
-        public Interceptors()
+        public InterceptorManager()
         {
             m_Injecter = Dependencies.GetPointerInjecter();
             m_MethodCreater = Dependencies.GetMethodCreater();
