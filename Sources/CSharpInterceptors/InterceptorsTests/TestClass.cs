@@ -11,19 +11,18 @@ namespace InterceptorsTests
         public int number;
         public void Add(int i)
         {
-            Console.WriteLine("Add");
             number = number + i;
         }
 
         public void Multiply(int i)
         {
-            Console.WriteLine("Multiply");
-            number *= i;
+            number = number * i;
         }
 
         public void NoOperation(int i)
         {
             Console.WriteLine("NoOperation");
+            number = number - i;
         }
 
         public void NoOperation2(int i)

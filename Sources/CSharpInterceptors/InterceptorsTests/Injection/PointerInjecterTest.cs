@@ -1,20 +1,16 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using CSharpInterceptors.Creation;
 using System.Reflection;
 using CSharpInterceptors.Injection;
-using CSharpInterceptors.Delegation;
 
-namespace InterceptorsTests.Creation
+namespace InterceptorsTests.Injection
 {
     [TestClass]
-    public class EmitionMethodCreaterTest
+    public class PointerInjecterTest
     {
-        
         [TestMethod]
-        public void EmitionMethodCreaterTestMethod()
+        public void PointerInjecterTestMethod()
         {
-            MethodCreater creater = new EmitionMethodCreater();
-            BaseInjecter injecter = new BaseInjecter();
+            PointerInjecter injecter = new Int32PointerInjecter();
             TestClass test = new TestClass();
             test.number = 1; // 1
             test.Add(1); // 1 + 1
@@ -30,21 +26,16 @@ namespace InterceptorsTests.Creation
             Assert.IsNotNull(add);
             Assert.IsNotNull(multiply);
             Assert.IsNotNull(noOp);
-            Assert.IsNotNull(noOp2);
 
-            MethodInfo addmul = creater.CallBoth(add, multiply, new ConcreteDelegateCreater<AddInterceptor, Operation>(), typeof(TestClass));
-            injecter.InjectPointer(addmul, noOp);
-            test.NoOperation(2);
+            injecter.InjectPointer(add, noOp);
+
+            test.NoOperation(2); // 4 + 2
+
+            Assert.AreEqual(6, test.number);
+
+            injecter.InjectPointer(multiply, noOp2);
+            test.NoOperation2(2); // 6 * 2
             Assert.AreEqual(12, test.number);
-
-
-            test.number = 4; // 4
-            Assert.AreEqual(4, test.number);
-
-            MethodInfo muladd = creater.CallBoth(multiply, add, new ConcreteDelegateCreater<MulInterceptor, Operation>(), typeof(TestClass));
-            injecter.InjectPointer(muladd, noOp2);
-            test.NoOperation2(2);
-            Assert.AreEqual(10, test.number);
         }
     }
 }

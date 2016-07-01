@@ -10,6 +10,7 @@ namespace InterceptorsTests
         public void Intercept(int i)
         {
             Operation called = this.GetIntercepted<Operation>();
+            number += i;
             called(this, i);
         }
     }
@@ -19,6 +20,7 @@ namespace InterceptorsTests
         public void Intercept(int i)
         {
             Operation called = this.GetIntercepted<Operation>();
+            number *= i;
             called(this, i);
         }
     }
@@ -27,10 +29,14 @@ namespace InterceptorsTests
     {
         public void Intercept(int i)
         {
-            Console.Write(string.Format("{0} + {1}", number, i));
+            string txt1, txt2;
+            txt1 = string.Format("{0} + {1}", number, i);
+            Console.Write(txt1);
             Operation operation = this.GetIntercepted<Operation>();
             operation(this, i);
-            Console.WriteLine(string.Format(" = {0}", number));
+            txt2 = string.Format(" = {0}", number);
+            Console.WriteLine(txt2);
+            InterceptorTest.Log(string.Format("{0}{1}", txt1, txt2));
         }
     }
 
@@ -38,10 +44,14 @@ namespace InterceptorsTests
     {
         public void Intercept(int i)
         {
-            Console.Write(string.Format("{0} * {1}", number, i));
+            string txt1, txt2;
+            txt1 = string.Format("{0} * {1}", number, i);
+            Console.Write(txt1);
             Operation operation = this.GetIntercepted<Operation>();
             operation(this, i);
-            Console.WriteLine(string.Format(" = {0}", number));
+            txt2 = string.Format(" = {0}", number);
+            Console.WriteLine(txt2);
+            InterceptorTest.Log(string.Format("{0}{1}", txt1, txt2));
         }
     }
 }
