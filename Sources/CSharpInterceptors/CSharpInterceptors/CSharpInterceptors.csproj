@@ -31,6 +31,27 @@
     <WarningLevel>4</WarningLevel>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x86\Debug\</OutputPath>
+    <DefineConstants>DEBUG</DefineConstants>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <OutputPath>bin\x86\Release\</OutputPath>
+    <DefineConstants>
+    </DefineConstants>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <Optimize>false</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -44,6 +65,9 @@
   <ItemGroup>
     <Compile Include="BinderWrapper.cs" />
     <Compile Include="Delegation\ConcreteDelegateCreater.cs" />
+    <Compile Include="Injection\AbstractPointerInjecter.cs" />
+    <Compile Include="Injection\AnyCPUPointerInjecter.cs" />
+    <Compile Include="Injection\Int64PointerInjecter.cs" />
     <Compile Include="Interceptor.cs" />
     <Compile Include="Binding\MethodBinder.cs" />
     <Compile Include="Delegation\AbstractDelegateCreater.cs" />
@@ -51,9 +75,9 @@
     <Compile Include="Creation\EmitionMethodCreater.cs" />
     <Compile Include="Creation\MethodCreater.cs" />
     <Compile Include="Dependencies.cs" />
-    <Compile Include="Injection\BaseInjecter.cs" />
+    <Compile Include="Injection\Int32PointerInjecter.cs" />
     <Compile Include="Injection\PointerInjecter.cs" />
-    <Compile Include="Interceptors.cs" />
+    <Compile Include="InterceptorManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup />
