@@ -79,8 +79,16 @@
     <Compile Include="Injection\PointerInjecter.cs" />
     <Compile Include="InterceptorManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Reading\ILMethodReader.cs" />
+    <Compile Include="Reading\Instruction.cs" />
+    <Compile Include="Reading\MethodReader.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\ILReaderLibrary\ILReaderLibrary.csproj">
+      <Project>{141beced-1840-4d32-ab01-164683cc1784}</Project>
+      <Name>ILReaderLibrary</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
