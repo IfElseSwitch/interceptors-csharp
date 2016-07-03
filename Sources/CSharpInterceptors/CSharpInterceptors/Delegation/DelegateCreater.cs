@@ -10,7 +10,7 @@ namespace CSharpInterceptors.Delegation
 {
     public interface DelegateCreater
     {
-        MethodInfo CreateDelegate(DynamicMethod method);
+        MethodInfo CreateDelegate(MethodInfo method);
 
         /// <summary>
         /// Returns the type of the binded class
@@ -23,7 +23,5 @@ namespace CSharpInterceptors.Delegation
         /// </summary>
         /// <returns></returns>
         Type GetDelegateType();
-
-        void Bind(Delegate d);
     }
 }

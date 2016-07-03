@@ -7,7 +7,7 @@ using System.Runtime.CompilerServices;
 
 namespace CSharpInterceptors.Creation
 {
-    public class EmitionMethodCreater : MethodCreater
+    public class EmitionMethodCreater : AbstractMethodCreater
     {
         private static EmitionMethodCreater s_Instance;
 
@@ -24,37 +24,10 @@ namespace CSharpInterceptors.Creation
         private EmitionMethodCreater() { }
 
 
-        private Type[] ExtractParameterTypes(MethodInfo method)
+
+        public override MethodInfo CreateMethod(MethodInfo original, string name, Type returnType, Type[] parameterTypes)
         {
-            ParameterInfo[] parameterInfos = method.GetParameters();
-            int length = parameterInfos.Length;
-            int start = 0;
-            if (method.IsStatic)
-            {
-                length -= 1;
-                start = 1;
-            }
-            Type[] parameterTypes = new Type[length];
-
-            for (int i = start; i < parameterInfos.Length; ++i)
-            {
-                parameterTypes[i - start] = parameterInfos[i].ParameterType;
-            }
-            return parameterTypes;
-        }
-        
-        public MethodInfo CallOne(MethodInfo method, DelegateCreater delegateCreater)
-        {
-            RuntimeHelpers.PrepareMethod(method.MethodHandle);
-
-            string name = string.Format("Call_{0}", method.Name);
-            Type returnType = method.ReturnType;
-            Type[] parameterTypes = ExtractParameterTypes(method);
-            List<Type> paramList = new List<Type>(parameterTypes);
-            paramList.Insert(0, method.DeclaringType);
-            parameterTypes = paramList.ToArray();
-
-            DynamicMethod newMethod = new DynamicMethod(name, returnType, parameterTypes, method.DeclaringType, true);
+            DynamicMethod newMethod = new DynamicMethod(name, returnType, parameterTypes, original.DeclaringType, true);
             ILGenerator body = newMethod.GetILGenerator();
             //Load arguments
             for (int i = 0; i < parameterTypes.Length; ++i)
@@ -62,11 +35,11 @@ namespace CSharpInterceptors.Creation
                 body.Emit(OpCodes.Ldarg, i);
             }
             //Call method
-            body.Emit(OpCodes.Callvirt, method);
+            body.Emit(OpCodes.Callvirt, original);
             //Return
             body.Emit(OpCodes.Ret);
 
-            return delegateCreater.CreateDelegate(newMethod);
+            return newMethod;
         }
     }
 }

@@ -64,6 +64,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BinderWrapper.cs" />
+    <Compile Include="Creation\AbstractMethodCreater.cs" />
+    <Compile Include="Creation\BuilderMethodCreater.cs" />
+    <Compile Include="Creation\MethodBuilderProvider.cs" />
     <Compile Include="Delegation\ConcreteDelegateCreater.cs" />
     <Compile Include="Injection\AbstractPointerInjecter.cs" />
     <Compile Include="Injection\AnyCPUPointerInjecter.cs" />
@@ -81,7 +84,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Reading\ILMethodReader.cs" />
     <Compile Include="Reading\Instruction.cs" />
+    <Compile Include="Reading\Instructions\AbstractInstruction.cs" />
     <Compile Include="Reading\MethodReader.cs" />
+    <Compile Include="Reading\Visitor\InstructionVisitor.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ILReaderLibrary\ILReaderLibrary.csproj">

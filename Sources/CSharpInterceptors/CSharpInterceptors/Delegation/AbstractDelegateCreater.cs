@@ -7,7 +7,7 @@ namespace CSharpInterceptors.Delegation
 {
     public abstract class AbstractDelegateCreater : DelegateCreater
     {
-        public MethodInfo CreateDelegate(DynamicMethod method)
+        public MethodInfo CreateDelegate(MethodInfo method)
         {
             Delegate d = method.CreateDelegate(GetDelegateType());
             MethodInfo called = GetInterceptorType().GetMethod("Intercept", BindingFlags.Instance | BindingFlags.DeclaredOnly | BindingFlags.Public);
@@ -19,7 +19,7 @@ namespace CSharpInterceptors.Delegation
 
         public abstract Type GetDelegateType();
 
-        public void Bind(Delegate d)
+        private void Bind(Delegate d)
         {
             MethodBinder.Bind(d, this);
         }
