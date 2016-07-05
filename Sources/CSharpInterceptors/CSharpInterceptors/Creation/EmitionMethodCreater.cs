@@ -7,7 +7,7 @@ using System.Runtime.CompilerServices;
 
 namespace CSharpInterceptors.Creation
 {
-    public class EmitionMethodCreater : AbstractMethodCreater
+    class EmitionMethodCreater : AbstractMethodCreater
     {
         private static EmitionMethodCreater s_Instance;
 
@@ -27,6 +27,9 @@ namespace CSharpInterceptors.Creation
 
         public override MethodInfo CreateMethod(MethodInfo original, string name, Type returnType, Type[] parameterTypes)
         {
+            List<Type> paramList = new List<Type>(parameterTypes);
+            paramList.Insert(0, original.DeclaringType);
+            parameterTypes = paramList.ToArray();
             DynamicMethod newMethod = new DynamicMethod(name, returnType, parameterTypes, original.DeclaringType, true);
             ILGenerator body = newMethod.GetILGenerator();
             //Load arguments

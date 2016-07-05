@@ -37,9 +37,6 @@ namespace CSharpInterceptors.Creation
             string name = string.Format("Call_{0}", method.Name);
             Type returnType = method.ReturnType;
             Type[] parameterTypes = ExtractParameterTypes(method);
-            List<Type> paramList = new List<Type>(parameterTypes);
-            paramList.Insert(0, method.DeclaringType);
-            parameterTypes = paramList.ToArray();
 
             MethodInfo created = CreateMethod(method, name, returnType, parameterTypes);
 

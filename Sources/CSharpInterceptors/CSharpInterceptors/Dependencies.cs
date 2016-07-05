@@ -13,7 +13,7 @@ namespace CSharpInterceptors
 
         public static MethodCreater GetMethodCreater()
         {
-            return EmitionMethodCreater.Instance;
+            return CompositeMethodCreater.Instance;
         }
 
         public static DelegateCreater GetDelegateCreater<TInterceptor, TDelegate>()
