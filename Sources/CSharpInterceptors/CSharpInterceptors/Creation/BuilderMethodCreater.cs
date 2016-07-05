@@ -6,16 +6,34 @@ using System.Text;
 using System.Threading.Tasks;
 using CSharpInterceptors.Delegation;
 using System.Reflection.Emit;
+using CSharpInterceptors.Creation.Provider;
 
 namespace CSharpInterceptors.Creation
 {
     class BuilderMethodCreater : AbstractMethodCreater
     {
-        private static MethodBuilderProvider s_Provider;
+        private static BuilderMethodCreater s_Instance;
+
+        public static BuilderMethodCreater Instance
+        {
+            get
+            {
+                if (s_Instance == null)
+                    s_Instance = new BuilderMethodCreater();
+                return s_Instance;
+            }
+        }
+
+        private BuilderMethodCreater()
+        {
+            m_Provider = SingletonAssemblyMethodBuilderProvider.Instance;
+        }
+
+        private MethodBuilderProvider m_Provider;
         public override MethodInfo CreateMethod(MethodInfo original, string name, Type returnType, Type[] parameterTypes)
         {
             TypeBuilder typeBuilder;
-            MethodBuilder methodBuilder = s_Provider.CreateMethodBuilder(original, name, returnType, parameterTypes, out typeBuilder);
+            MethodBuilder methodBuilder = m_Provider.CreateMethodBuilder(original, name, returnType, parameterTypes, out typeBuilder);
             Module module = original.Module;
             MethodBody body = original.GetMethodBody();
             byte[] ilCode = body.GetILAsByteArray();
@@ -23,7 +41,7 @@ namespace CSharpInterceptors.Creation
             methodBuilder.SetMethodBody(ilCode, body.MaxStackSize, module.ResolveSignature(body.LocalSignatureMetadataToken),
                 null, null);
 
-            return s_Provider.Finalize(methodBuilder, typeBuilder);
+            return m_Provider.Finalize(methodBuilder, typeBuilder);
         }
     }
 }
