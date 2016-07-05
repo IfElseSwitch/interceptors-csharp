@@ -9,3 +9,5 @@ Quoting from his readme :
 "This article builds on the ILReader library found here:
 
 http://blogs.msdn.com/b/haibo_luo/archive/2006/11/06/system-reflection-based-ilreader.aspx " (article from Haibo Luo)
+
+Nawaz and swick for their question and anwer on that post : http://stackoverflow.com/questions/7671220/creating-method-dynamically-and-executing-it
